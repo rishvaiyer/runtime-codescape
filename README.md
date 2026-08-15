@@ -1,27 +1,22 @@
 # Runtime Codescape
 
-Runtime Codescape is a lightweight, synthetic developer-observability dashboard. It connects OpenTelemetry-like spans, git blame/change metadata, test coverage, ownership, and deployment context into one answer: **which runtime path failed, what files are implicated, and what changed between releases?**
+Runtime Codescape is a portable developer-observability product that answers: which runtime path failed, which files and tests are implicated, and did the latest release get riskier? It combines synthetic OpenTelemetry-like spans with file ownership/coverage, test outcomes, and deployment facts.
 
-## Run locally
+## Run
 
-```sh
+```bash
 npm test
+npm run lint
 npm start
-# open http://localhost:4173
+open http://localhost:4180
 ```
 
-No dependencies, database, Docker, or external API is required. The browser UI is static and the Node server only serves local assets. The fixture is deliberately portable and synthetic; it is not a production telemetry collector.
+`GET /api/analysis?release=v2.5.0` returns the bundled fixture. `POST /api/analyze` accepts a portable `{ "spans": [...], "metadata": {...}, "files": [...], "tests": [...] }` document. `GET /health` reports `backend: portable-json`.
 
 ## Algorithm
 
-The trace graph is a fixed topology rendered from a small fixture. Critical-path scoring walks the parent/child span tree and adds each span duration to the maximum downstream branch. Risk evidence combines a deterministic file signal, owner, coverage, and release commit. This makes the demo repeatable and testable while leaving a clear seam for real OTLP/git adapters later.
+The importer validates unique IDs, parent references, cycles, and payload size. For each span, child time is subtracted from inclusive duration using interval-union arithmetic; the root-to-leaf chain with the greatest sum of exclusive durations is the critical path, avoiding nested double-counting. Risk combines failed-span penalty, critical-path latency, low coverage on changed files, and failed tests. Layout is deterministic by depth layer.
 
-## Privacy and security boundaries
+## Boundaries
 
-- No credentials, cookies, source contents, production traces, or personal data are included.
-- Do not point this static fixture at a private repository or live telemetry without adding authentication, access controls, retention policy, and redaction.
-- Deployment metadata shown here is mock release context. A real collector should enforce tenant isolation and least privilege.
-
-## Limitations
-
-This is a front-end product slice, not a live ingest pipeline. It does not query GitHub, OpenTelemetry, CI, or Railway; the release comparison is a portable fixture. The next production step is a read-only adapter layer with sampled traces and server-side redaction.
+Fixtures are synthetic and contain no customer traces, repository names, secrets, or personal data. A production adapter should authenticate collectors, redact attributes, enforce tenant boundaries, retain raw traces separately, and calibrate risk to service-level objectives.

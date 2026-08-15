@@ -1,8 +1,1 @@
-{
-  "name": "runtime-codescape",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "scripts": {"start": "node server.mjs", "test": "node --test tests/*.test.mjs"},
-  "engines": {"node": ">=20"}
-}
+{"name":"runtime-codescape","version":"0.1.0","private":false,"type":"module","description":"Deterministic runtime trace risk analysis and release comparison.","scripts":{"start":"node server.mjs","test":"node --test test/*.test.mjs","lint":"node --check server.mjs && node --check src/analysis.mjs && node --check public/app.js"},"engines":{"node":">=20"}}

@@ -1,0 +1,5 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import {releases,criticalPath,analyze,compare} from '../src/analysis.mjs';
+test('critical path follows the slowest child, not source order',()=>{const result=criticalPath(releases['v2.5.0'].spans);assert.deepEqual(result.spanIds,['root','payments','ledger']);assert.equal(result.duration,1201)});
+test('analysis identifies the failed runtime span and implicated files',()=>{const result=analyze(releases['v2.5.0']);assert.equal(result.failed[0].id,'payments');assert.ok(result.impactedFiles.some((file)=>file.path.includes('payments')));assert.ok(result.risk>50)});
+test('release comparison reports regression',()=>{const result=compare(releases['v2.5.0'],releases['v2.4.3']);assert.equal(result.current,'v2.5.0');assert.ok(result.latencyDelta>0);assert.ok(result.riskDelta>0);assert.ok(result.failedTestsDelta>0)});
+test('layout is deterministic',()=>assert.deepEqual(Object.keys(analyze(releases['v2.5.0']).positions),Object.keys(analyze(releases['v2.5.0']).positions)));

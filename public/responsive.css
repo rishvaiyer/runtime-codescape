@@ -1,22 +1,5 @@
-.grid > *,
-.lower > *,
-.file-row > div:first-child {
-  min-width: 0;
+.city-layout > *, .lower > *, .file-row > div:first-child { min-width: 0; }
+@media (max-width: 850px) {
+  .shell{padding:18px 14px 30px}.hero{grid-template-columns:1fr;gap:20px;padding:42px 2px 28px}.hero h1{font-size:51px}.hero-note{justify-self:stretch;max-width:none}.controls{flex-wrap:wrap;align-items:stretch}.control-group{width:100%}.controls button{flex:1;height:44px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.city-layout,.lower{grid-template-columns:minmax(0,1fr)}.canvas{height:390px}.inspector{min-height:0}.legend{display:none}.path-list{flex-direction:column}.path-node{flex:none}.city-foot{flex-direction:column;line-height:1.4}.file-row{grid-template-columns:minmax(0,1fr) 55px 38px;gap:8px}footer{flex-direction:column;gap:9px}
 }
-
-@media (max-width: 800px) {
-  .hero,
-  .grid,
-  .lower {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .metrics {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .file-row {
-    grid-template-columns: minmax(0, 1fr) 54px 40px;
-    gap: 8px;
-  }
-}
+@media (max-width: 420px) { .hero h1{font-size:44px}.card{padding:17px}.metrics div{padding:14px 12px}.metrics strong{font-size:23px}.metrics small{font-size:9px}.canvas{height:340px}.city-toolbar{font-size:9px}.file-owner{font-size:9px} }

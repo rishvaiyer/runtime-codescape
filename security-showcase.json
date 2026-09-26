@@ -1,0 +1,31 @@
+{
+  "project": "Runtime Codescape",
+  "category": "Deterministic runtime risk analysis",
+  "one_liner": "A portable developer-observability tool that traces the failing runtime path, ties it to files and tests, and compares release risk.",
+  "hook": "A release fails. Runtime Codescape shows the path, files, tests, and whether the release actually got riskier.",
+  "safe_demo_scenes": [
+    "Load the bundled synthetic release fixture and reveal the critical runtime path.",
+    "Highlight implicated files/tests and the deterministic risk factors.",
+    "Compare two release states and show the risk delta without inventing production impact."
+  ],
+  "verification_commands": [
+    "npm test",
+    "npm run lint"
+  ],
+  "allowed_claims": [
+    "The importer validates IDs, parent references, cycles, and payload size.",
+    "Critical path uses exclusive-duration interval arithmetic to avoid nested double-counting.",
+    "Bundled fixtures are synthetic and contain no customer traces, secrets, or personal data."
+  ],
+  "forbidden_claims": [
+    "Predicts production incidents with guaranteed accuracy.",
+    "Uses real customer telemetry in the bundled demo.",
+    "Risk score is a universal security or reliability standard."
+  ],
+  "privacy": [
+    "Use bundled synthetic traces only.",
+    "Do not capture real repository names, secrets, or customer telemetry."
+  ],
+  "tone": "clean engineering launch",
+  "preferred_duration_seconds": 20
+}\n
